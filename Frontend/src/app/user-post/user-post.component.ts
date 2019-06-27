@@ -15,17 +15,22 @@ export class UserPostComponent implements OnInit {
 
 
   name : ''
+  showSuccessMessage : boolean ;
+
+  serverErrorMessage : string ;
 
   onSubmit(form : NgForm)
   {
     this.userService.postDataValues(form.value).subscribe(
       res =>
       {
-       console.log(res)
+       this.showSuccessMessage = true; 
+       console.log(res);
+       this.resetForm();
       },
       err =>
     {
-      console.log("Error Encountered")
+      this.serverErrorMessage ='Error Encountered'
     })
   }
 
@@ -37,10 +42,20 @@ export class UserPostComponent implements OnInit {
         console.log(this.name)
       //  console.log(this.author)
       this.userService.postData.name= this.name;
+     
     },
     err => 
     {
       console.log('paramter not found')
     })
+  }
+
+  resetForm()
+  {
+    this.userService.postData = {
+     name : '',
+     topicname : '',
+     description : ''
+    };
   }
 }

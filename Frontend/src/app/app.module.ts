@@ -15,6 +15,7 @@ import { DiscussForumComponent } from './discuss-forum/discuss-forum.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LogoutComponent } from './logout/logout.component';
     DiscussForumComponent,
     NavbarComponent,
     FooterComponent,
-    LogoutComponent
+    LogoutComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
