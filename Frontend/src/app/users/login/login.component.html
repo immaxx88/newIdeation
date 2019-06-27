@@ -1,0 +1,11 @@
+<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+<input type="text" name="email" #email="ngModel" [(ngModel)]="model.email" placeholder="Email" required>
+<input type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password" required>
+<input type="submit" value="SignIn">
+
+</form>
+
+<div class="alert" *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>

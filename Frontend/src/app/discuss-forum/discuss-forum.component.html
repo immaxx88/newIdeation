@@ -1,0 +1,28 @@
+<!-- <table>
+    <thead>
+    <th>Author</th>
+    <th>TITLE</th>
+    <th>IDEA</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let post of postsData">
+    <td>{{post.name}}</td>
+    <td>{{post.topicname}}</td>
+    <td>{{post.description}}</td>
+    <button>Reply</button>
+    </tr>
+    </tbody>
+    </table> -->
+
+    <div class="boxed" *ngFor="let post of postsData">
+        Author : {{post.name}}
+                <br>
+                <br>
+        Title : {{post.topicname}}
+        <br>
+        <br>
+        Description : {{post.description}}
+        <br>
+        <br>
+        <input type="button" value="Reply">
+      </div>

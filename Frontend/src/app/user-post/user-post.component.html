@@ -1,0 +1,20 @@
+<form #postsForm="ngForm" (ngSubmit)="onSubmit(postsForm)">
+  
+  <input type="text" readonly #name="ngModel" [(ngModel)]="userService.postData.name" name="name" placeholder="Author">
+  <input type="text"  #topicname="ngModel" [(ngModel)]="userService.postData.topicname" name="topicname" placeholder="Topic Name" >
+  <br>
+  <textarea #description="ngModel" [(ngModel)]="userService.postData.description" name="description" placeholder="Describe your Idea !!" cols="30" rows="10"></textarea>
+    <!-- <input type="textarea"  #desc="ngModel" [(ngModel)]="userService.selectedUser.email" name="topicname" placeholder="Description"> -->
+  <br>
+  <br>
+    <button type="submit">Add Post</button>
+  </form>
+  
+  <div class="success" *ngIf="showSuccessMessage"> 
+  Saved Successfully
+  </div>
+  
+  <div class="alert" *ngIf="serverErrorMessage">
+  {{serverErrorMessage}}
+  </div>
+  

@@ -1,0 +1,30 @@
+<form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)">
+  <input type="text"  #name="ngModel" [(ngModel)]="userService.selectedUser.name" name="name" placeholder="Full Name" >
+
+<br>
+
+  <input type="text"  #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email">
+
+<br>
+
+  <input type="password"  #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="Password">
+  <br>
+  <div class="form-group">
+  <select #role="ngModel"  class="form-control" [(ngModel)]="userService.selectedUser.role" name="role" placeholder="Role">
+    <option value="Owner">Owner</option>
+    <option value="Moderator">Moderator</option>
+    <option value="Employee">Employee</option>
+  </select>
+</div>
+<br>
+  <input type="submit" value="SignUp">
+ 
+</form>
+
+<div class="success" *ngIf="showSuccessMessage"> 
+Saved Successfully
+</div>
+
+<div class="alert" *ngIf="serverErrorMessage">
+{{serverErrorMessage}}
+</div>
