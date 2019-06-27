@@ -20,9 +20,14 @@ export class UserProfileComponent implements OnInit {
     role : ''
   }
 
-  onSubmit()
+  onSubmitPost()
   {
     this.router.navigate(['/addpost',this.author])
+  }
+
+  onSubmitDesc()
+  {
+    this.router.navigate(['/allposts',this.author])
   }
 
   ngOnInit() {

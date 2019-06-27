@@ -27,7 +27,7 @@ const routes: Routes = [
     path : 'addpost/:id',component : UserPostComponent
   },
   {
-    path : 'allposts' , component : DiscussForumComponent
+    path : 'allposts/:id' , component : DiscussForumComponent
   },
   {
     path : 'logout' , component : LogoutComponent
