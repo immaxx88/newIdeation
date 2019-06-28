@@ -14,10 +14,10 @@
     </tbody>
     </table> -->
 
-    <div class="boxed">
+    <div class="boxed" >
       You are logged in as : <strong> {{name}}</strong>
     </div>
-    <div class="boxed" *ngFor="let post of postsData">
+    <div class="boxed" *ngFor="let post of postsData" id = {{post._id}}>
         Author : {{post.name}}
                 <br>
                 <br>
@@ -27,5 +27,5 @@
         Description : {{post.description}}
         <br>
         <br>
-        <input type="button" value="Reply">
+        <input type="button" value="Comment">
       </div>

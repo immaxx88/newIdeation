@@ -26,12 +26,31 @@ user.save((err,doc)=>
 })
 })
 
+router.put('/addpost',(req,res,next) => 
+{
+    Post.findOneAndUpdate(
+        {"_id" : req.body._id},
+        {$push : {comments : req.body.comments}},
+        {new : true},
+        function (err, documents) {
+            res.send({ error: err, affected: documents });
+          
+        }
+
+        
+
+    )
+})
+
 router.post('/addpost',(req,res,next) =>
 {
+  //  let i = 0;
 var post = new Post()
 post.name = req.body.name;
 post.topicname = req.body.topicname;
 post.description = req.body.description;
+//post.comments[i] = req.body.comments;
+//i++;
 post.save((err,doc)=>
 {
     if(!err)

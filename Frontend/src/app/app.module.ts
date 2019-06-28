@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms'
 
+//Firebase
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
@@ -15,7 +17,8 @@ import { DiscussForumComponent } from './discuss-forum/discuss-forum.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
-import { ChatComponent } from './chat/chat.component';
+import { CommentsComponent } from './comments/comments.component';
+//import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -29,14 +32,17 @@ import { ChatComponent } from './chat/chat.component';
     NavbarComponent,
     FooterComponent,
     LogoutComponent,
-    ChatComponent
+    CommentsComponent,
+    //ChatComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    // AngularFireModule.initializeApp(environment.firebase, 'fcc-book-trading'),
+    // AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

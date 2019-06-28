@@ -12,6 +12,9 @@ var postsSchema = new mongoose.Schema({
     description : {
         type : String,
         required : "Discussion can't be empty"
+    },
+    comments : {
+        type : Array 
     }
 })
 
