@@ -27,5 +27,10 @@
         Description : {{post.description}}
         <br>
         <br>
-        <input type="button" value="Comment">
+        <div id="items">
+        Comment:
+        <!-- <input type="button" value="Comment" id="comment" (click)="addComment()"> -->
+        <button id="comment" (click)="addComment(post._id)">Comment</button>
+      </div>
+      <br>
       </div>

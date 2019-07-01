@@ -23,7 +23,7 @@ export class UserService {
     topicname : '',
     description : ''
   }
-  
+
   isUserLoggedIn : boolean
 
   postUser(user: User){
@@ -46,6 +46,11 @@ export class UserService {
   postDataValues(post : Post)
   {
     return this.http.post(environment.apiBaseUrl+'/addpost',post)
+  }
+
+  postComment(val1,val2)
+  {
+    return this.http.put(environment.apiBaseUrl+'/addpost',val1,val2)
   }
 
   constructor(private http: HttpClient) { }
