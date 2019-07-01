@@ -48,9 +48,9 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl+'/addpost',post)
   }
 
-  postComment(val1,val2)
+  postComment(val)
   {
-    return this.http.put(environment.apiBaseUrl+'/addpost',val1,val2)
+    return this.http.put(environment.apiBaseUrl+'/addpost',val)
   }
 
   constructor(private http: HttpClient) { }

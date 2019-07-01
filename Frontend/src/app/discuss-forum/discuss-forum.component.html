@@ -27,10 +27,11 @@
         Description : {{post.description}}
         <br>
         <br>
+        Comments : {{post.comments}}
+        <br>
+        <br>
         <div id="items">
-        Comment:
         <!-- <input type="button" value="Comment" id="comment" (click)="addComment()"> -->
-        <button id="comment" (click)="addComment(post._id)">Comment</button>
+        <input type="button" id="comment" value="Comment" (click)="addComment(post._id)">
       </div>
-      <br>
       </div>

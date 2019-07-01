@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 declare var $: any;
 
@@ -11,7 +11,7 @@ declare var $: any;
 })
 export class DiscussForumComponent implements OnInit {
 
-  constructor(private userService : UserService,private route : ActivatedRoute,private http: HttpClient) { }
+  constructor(private userService : UserService,private route : ActivatedRoute,private http: HttpClient,private router : Router) { }
 
   postsData : any ;
 
@@ -19,6 +19,8 @@ export class DiscussForumComponent implements OnInit {
 
   name : string;
   counter = 0;
+
+  comment : any = {};
 
   ngOnInit() {
 
@@ -51,10 +53,20 @@ export class DiscussForumComponent implements OnInit {
     )
     
   }
-  postComment(val)
+  postCmnt(val)
 {
-
-}
+  this.userService.postComment(val).subscribe(
+    res =>
+    {
+      console.log(res)
+      //this.router.onSameUrlNavigation = 'reload'
+      //this.router.navigateByUrl('/allposts/Vicky')
+    },
+    err =>
+    {
+      console.log(err);
+    }
+)}
 
   addComment(value)
   {
@@ -68,20 +80,31 @@ export class DiscussForumComponent implements OnInit {
    // console.log(value)
     this.counter++;
    let curID = value;
-   console.log(curID)
-
+   //console.log(curID)
+   //(keyup.enter)="methodInsideYourComponent()"
     var dynInp = document.createElement("input");
     dynInp.id="i"
-    dynInp.onkeypress = function(event)
-    {
-     if (event.key === "Enter") {
-      // console.log(dynInp.value);
-      postComment(dynInp.value);
-       //  return this.http.put('http://localhost:3000/api/addpost')        
-      }
-    //}
-    //var node = document.createTextNode("This is new.");
-    //para.appendChild(node);
+    
+     dynInp.onkeypress = (event) =>
+     {
+           if (event.key === "Enter") {
+           //console.log(dynInp.value) 
+          //this.comment = dynInp.value
+
+          this.comment={
+            _id: curID,
+            comments : dynInp.value
+          }
+         // this.postCmnt(this.comment)
+          this.postCmnt(this.comment)
+
+    //  //  this.comment = (inputevent.target).value
+    // // event
+     };
+    
+    }
+
+    //dynInp.onkeyup
     var btn = document.createElement("input")
     var element = document.getElementById(curID);
 
@@ -98,15 +121,10 @@ export class DiscussForumComponent implements OnInit {
     element.removeChild(inp);
     element.removeChild(btnn)
     }
-
       // $(wrapper).on("click",".remove_field", function(e){ //user click on remove field
       // e.preventDefault(); $(this).parent('div').remove(); x--;
       // })
       // });
      // console.log("World")
   }
-
-}
-
-
 }
