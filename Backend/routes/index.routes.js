@@ -3,8 +3,49 @@ const mongoose = require('mongoose')
 const router = express.Router()
 const User = mongoose.model('User')
 const Post = mongoose.model('Post')
+const Image = mongoose.model('Image')
+
+
 const passport = require('passport')
 const loadash = require('lodash')
+const fs = require('fs')
+// const multer = require('multer');
+//import fs from 'fs';
+//import fs from 'fs';
+
+
+router.post('/upload', (req,res) =>
+{
+    var image = new Image()
+    image.base64String = req.body.base64String;
+    image.author = req.body.author;
+    image.postid = req.body.postid;
+
+    let base64Str = req.body.base64String // Not a real image
+// Remove header
+    let base64Image = base64Str.split(';base64,').pop();
+   // let path = '';
+    
+    fs.writeFile('vineet.png', base64Image, {encoding: 'base64'}, function(err) {
+    console.log('File created');
+});
+    image.save((err,doc) =>
+    {
+        if(!err)
+            res.send(doc)
+        else
+            console.log(err)
+    })
+
+    console.log(saveImage(req.body.base64String))
+})
+
+
+  
+  
+  /*Download the base64 image in the server and returns the filename and path of image.*/
+  
+
 
 router.post('/register',(req,res,next)=>
 {
@@ -30,7 +71,7 @@ router.put('/addpost',(req,res,next) =>
 {
     Post.findOneAndUpdate(
         {"_id" : req.body._id},
-        {$push : {comments : req.body.comments}},
+        {$push : {comments : req.body.comments + " Commented by " + req.body.author}},
         {new : true},
         function (err, documents) {
             res.send({ error: err, affected: documents });
@@ -103,5 +144,13 @@ router.get('/allposts',(req,res) =>
           res.send(userMap);  
         });
       });
+
+  //post request for  
+//   app.post('/api/photo',function(req,res){
+//     var newItem = new Image();
+//     newItem.img.data = fs.readFileSync(req.files.userPhoto.path)
+//     newItem.img.contentType = 'image/png';
+//     newItem.save();
+//    });   
 
 module.exports = router

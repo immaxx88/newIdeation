@@ -1,21 +1,6 @@
-<!-- <table>
-    <thead>
-    <th>Author</th>
-    <th>TITLE</th>
-    <th>IDEA</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let post of postsData">
-    <td>{{post.name}}</td>
-    <td>{{post.topicname}}</td>
-    <td>{{post.description}}</td>
-    <button>Reply</button>
-    </tr>
-    </tbody>
-    </table> -->
-
-    <div class="boxed" >
-      You are logged in as : <strong> {{name}}</strong>
+<form enctype="multipart/form-data" #uploadForm="ngForm">
+<div class="boxed" >
+      You are logged in as : <strong> {{loggedInUser}}</strong>
     </div>
     <div class="boxed" *ngFor="let post of postsData" id = {{post._id}}>
         Author : {{post.name}}
@@ -27,11 +12,18 @@
         Description : {{post.description}}
         <br>
         <br>
-        Comments : {{post.comments}}
-        <br>
-        <br>
+        Comments : 
+        <h4 *ngFor="let p of post.comments"> {{p}}</h4>
         <div id="items">
         <!-- <input type="button" value="Comment" id="comment" (click)="addComment()"> -->
-        <input type="button" id="comment" value="Comment" (click)="addComment(post._id)">
+        <input type="button" id="comment" value="Comment" (click)="addComment(post._id,loggedInUser)">
       </div>
+      <!-- <div>
+        <input type="button" value="Add Image" (click)="uploadImage(post._id,loggedInUser)">
+      </div> -->
+      <div>
+          <input type="file" name="photo" (change)="trialFunc($event.target.files,loggedInUser,post._id)">
+          <!-- <button (click)="trialFunc(uploadForm)" type="submit">Trial</button> -->
+        </div>
       </div>
+    </form>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 declare var $: any;
 
 @Component({
@@ -17,10 +18,14 @@ export class DiscussForumComponent implements OnInit {
 
   finalPostsData :any = {};
 
-  name : string;
+  loggedInUser : string;
   counter = 0;
 
   comment : any = {};
+
+  base64String : string;
+
+  objImage : any = {};
 
   ngOnInit() {
 
@@ -28,8 +33,8 @@ export class DiscussForumComponent implements OnInit {
     this.route.params.subscribe(
       params => 
       {
-        this.name = params['id'];
-        console.log(this.name)
+        this.loggedInUser = params['id'];
+        console.log(this.loggedInUser)
       //  console.log(this.author)
     },
     err => 
@@ -49,12 +54,11 @@ export class DiscussForumComponent implements OnInit {
       {
         console.log('Error Encountered')
       }
-   
     )
-    
   }
+
   postCmnt(val)
-{
+  {
   this.userService.postComment(val).subscribe(
     res =>
     {
@@ -66,24 +70,14 @@ export class DiscussForumComponent implements OnInit {
     {
       console.log(err);
     }
-)}
+    )}
 
-  addComment(value)
+  addComment(id,author)
   {
-    //console.log("Hello")
-    //var $btn = $("<input type='text' placeholder='Comment your feedback'>")
-    // .on("click",function(i){
-    //   //this.getSlot(i)
-    // //console.log("Jquery Function")
-    // })
-    //$("#comment").append($btn);
-   // console.log(value)
-    this.counter++;
-   let curID = value;
-   //console.log(curID)
-   //(keyup.enter)="methodInsideYourComponent()"
+  this.counter++;
+   let curID = id;
     var dynInp = document.createElement("input");
-    dynInp.id="i"
+    dynInp.id="i";
     
      dynInp.onkeypress = (event) =>
      {
@@ -93,15 +87,14 @@ export class DiscussForumComponent implements OnInit {
 
           this.comment={
             _id: curID,
-            comments : dynInp.value
+            comments : dynInp.value,
+            author : author
           }
          // this.postCmnt(this.comment)
           this.postCmnt(this.comment)
-
     //  //  this.comment = (inputevent.target).value
     // // event
-     };
-    
+     };   
     }
 
     //dynInp.onkeyup
@@ -121,10 +114,94 @@ export class DiscussForumComponent implements OnInit {
     element.removeChild(inp);
     element.removeChild(btnn)
     }
-      // $(wrapper).on("click",".remove_field", function(e){ //user click on remove field
-      // e.preventDefault(); $(this).parent('div').remove(); x--;
-      // })
-      // });
-     // console.log("World")
   }
+
+
+  finalImg(objImage)
+
+  {
+    this.userService.uploadImgg(objImage).subscribe(
+      response =>
+      {
+        console.log(response)
+        //this.router.onSameUrlNavigation = 'reload'
+        //this.router.navigateByUrl('/allposts/Vicky')
+        alert("Image Uploaded Successfully");
+        this.router.navigate(['/allposts',this.loggedInUser])
+      },
+      err =>
+      {
+        console.log(err);
+      }
+      )
+  }
+
+
+  handlerOut(base64Temp,author,id)
+  {
+  //  console.log(base64String,author)
+  this.objImage =
+  {
+    base64String : base64Temp,
+    author : author,
+    postid : id
+  }
+
+  this.finalImg(this.objImage);
+  }
+
+  trialFunc(files : FileList,author,id)
+  {
+      var f = files.item(0); // FileList object
+      var reader = new FileReader();
+      reader.readAsDataURL(f);
+      reader.onload = (
+        (f)  => 
+        {
+          return (e) => {
+          var imageSrc = reader.result.toString();
+          this.handlerOut(imageSrc,author,id)
+        };
+      })(f);
+  }
+
+  // uploadImage(id,author)
+  // {
+  //   var dynFormUpload = document.createElement("input")
+  //   dynFormUpload.type = "file"
+  //   dynFormUpload.id = "file"
+
+
+  //   var dynFormSubmit = document.createElement("input")
+  //   dynFormSubmit.type = "button"
+  //   dynFormSubmit.value = "Upload"
+  //   dynFormSubmit.id ="upload"
+  //   // dynFormSubmit.onclick = function()
+  //   // {
+
+  //   // }
+    
+
+  //   var element = document.getElementById(id)
+  //   element.appendChild(dynFormUpload);
+  //   element.appendChild(dynFormSubmit);
+
+  //   var removeBtn = document.createElement("input")
+  //   removeBtn.type = "button"
+  //   removeBtn.value = "Remove"
+  //   removeBtn.id = "remove"
+    
+  //   element.appendChild(removeBtn);
+
+  //   removeBtn.onclick = function()
+  //   {
+  //     var inp = document.getElementById('file');
+  //     var btnn = document.getElementById('upload');
+  //     var remove = document.getElementById('remove');
+  //   element.removeChild(inp);
+  //   element.removeChild(btnn)
+  //   element.removeChild(remove)
+  //   }
+  // }
+
 }

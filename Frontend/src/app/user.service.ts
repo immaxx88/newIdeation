@@ -3,6 +3,7 @@ import { User } from './user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Post } from './post.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,15 @@ export class UserService {
   {
     return this.http.put(environment.apiBaseUrl+'/addpost',val)
   }
+
+  uploadImgg(val1)
+  {
+    return this.http.post(environment.apiBaseUrl+'/upload',val1)
+  }
+
+  // fileUpload(file : File) : Observable<Object>
+  // {
+  // }
 
   constructor(private http: HttpClient) { }
 }
