@@ -12,6 +12,10 @@
         Description : {{post.description}}
         <br>
         <br>
+        Image Comments :
+        <div *ngFor="let image of imagesData">
+        <h4 *ngIf="image.postid === post._id"> <strong> {{image.filename}} </strong> </h4>
+      </div>
         Comments : 
         <h4 *ngFor="let p of post.comments"> {{p}}</h4>
         <div id="items">

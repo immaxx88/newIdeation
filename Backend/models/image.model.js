@@ -13,6 +13,10 @@ var imgSchema = new mongoose.Schema(
         postid : 
         {
             type : String
+        },
+        filename : 
+        {
+            type : String
         }
     }
 )

@@ -44,6 +44,11 @@ export class UserService {
     return this.http.get(environment.apiBaseUrl+'/allposts')
   }
 
+  getImages()
+  {
+    return this.http.get(environment.apiBaseUrl+'/getphotos')
+  }
+
   postDataValues(post : Post)
   {
     return this.http.post(environment.apiBaseUrl+'/addpost',post)

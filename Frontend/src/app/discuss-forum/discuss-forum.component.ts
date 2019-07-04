@@ -16,6 +16,8 @@ export class DiscussForumComponent implements OnInit {
 
   postsData : any ;
 
+  imagesData : any ;
+
   finalPostsData :any = {};
 
   loggedInUser : string;
@@ -53,6 +55,18 @@ export class DiscussForumComponent implements OnInit {
       err =>
       {
         console.log('Error Encountered')
+      }
+    )
+
+    this.userService.getImages().subscribe(
+      res => 
+      {
+        this.imagesData = res;
+        console.log(this.imagesData)
+      },
+      err =>
+      {
+        console.log("Error Encountered")
       }
     )
   }
@@ -118,7 +132,6 @@ export class DiscussForumComponent implements OnInit {
 
 
   finalImg(objImage)
-
   {
     this.userService.uploadImgg(objImage).subscribe(
       response =>
@@ -132,27 +145,27 @@ export class DiscussForumComponent implements OnInit {
       err =>
       {
         console.log(err);
-      }
-      )
+      })
   }
 
-
-  handlerOut(base64Temp,author,id)
+  handlerOut(base64Temp,author,id,filename)
   {
   //  console.log(base64String,author)
   this.objImage =
   {
     base64String : base64Temp,
     author : author,
-    postid : id
+    postid : id,
+    filename : filename
   }
-
   this.finalImg(this.objImage);
   }
 
   trialFunc(files : FileList,author,id)
   {
       var f = files.item(0); // FileList object
+      let filename = f.name
+
       var reader = new FileReader();
       reader.readAsDataURL(f);
       reader.onload = (
@@ -160,7 +173,8 @@ export class DiscussForumComponent implements OnInit {
         {
           return (e) => {
           var imageSrc = reader.result.toString();
-          this.handlerOut(imageSrc,author,id)
+         // console.log(filename)
+          this.handlerOut(imageSrc,author,id,filename)
         };
       })(f);
   }

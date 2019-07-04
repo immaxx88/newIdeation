@@ -20,13 +20,13 @@ router.post('/upload', (req,res) =>
     image.base64String = req.body.base64String;
     image.author = req.body.author;
     image.postid = req.body.postid;
+    image.filename = req.body.filename;
 
-    let base64Str = req.body.base64String // Not a real image
-// Remove header
+    let base64Str = req.body.base64String; // Not a real image
+    let fileName = req.body.filename;
     let base64Image = base64Str.split(';base64,').pop();
-   // let path = '';
-    
-    fs.writeFile('vineet.png', base64Image, {encoding: 'base64'}, function(err) {
+    //let imgPath = `/Backend/uploads/${fileName}`
+    fs.writeFile(`./uploads/${fileName}`, base64Image, {encoding: 'base64'}, function(err) {
     console.log('File created');
 });
     image.save((err,doc) =>
@@ -67,6 +67,21 @@ user.save((err,doc)=>
 })
 })
 
+router.get('/getphotos',(req,res) =>
+{
+    Image.find({}, function(err, users) {
+        var userMap = {};
+       // var i = 1
+        users.forEach(function(user) {
+          //userMap[i] = user;
+          userMap = users
+          //i++;
+        });
+        res.send(userMap);  
+      });
+}
+)
+
 router.put('/addpost',(req,res,next) => 
 {
     Post.findOneAndUpdate(
@@ -74,12 +89,8 @@ router.put('/addpost',(req,res,next) =>
         {$push : {comments : req.body.comments + " Commented by " + req.body.author}},
         {new : true},
         function (err, documents) {
-            res.send({ error: err, affected: documents });
-          
+            res.send({ error: err, affected: documents }); 
         }
-
-        
-
     )
 })
 
